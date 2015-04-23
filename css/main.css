@@ -1,0 +1,18 @@
+#mainMenu {
+	display: block;
+}
+
+#playArea, #spectateArea, #scoreArea {
+	display: none;
+}
+#myModal .msg{
+	display: block;
+}
+
+#myModal input{
+	display: none;
+	margin-top: 2%;
+}
+.row{
+	margin-bottom: 3%;
+}
