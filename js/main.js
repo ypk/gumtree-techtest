@@ -1,6 +1,6 @@
 $(function() {
 	// ElementHandlers
-	var mainMenu = $("#mainMenu"), playArea = $("#playArea"), spectateArea = $("#spectateArea"), scoreArea = $("#scoreArea"), playerName = "";
+	var mainMenu = $("#mainMenu"), playArea = $("#playArea"), spectateArea = $("#spectateArea"), scoreArea = $("#scoreArea"), playAreaBtnsGroup = $("#playAreaBtnsGroup"), playerName = "";
 	/*
 	 * playgame()
 	 * this function requests the user to enter their names
@@ -47,20 +47,6 @@ $(function() {
 		window[target]();
 	});
 	/*
-	 * PLay Area button Handler
-	 */	
-	playArea.find("button.selection").on("click", function() {
-		target = $(this).attr("id");
-		startGame(target);
-	});
-	
-	playArea.find("button").on("click", function() {
-		target = $(this).attr("id");
-		if(target === "exitArea"){
-			window[target]();
-		}
-	});
-	/*
 	 * Spectate Aera Button Handler
 	 */	
 	spectateArea.find("button").on("click", function() {
@@ -75,6 +61,12 @@ $(function() {
 		window[target]();
 	});
 	/*
+	 * Capitalizing Function
+	 */
+	String.prototype.capitalize = function() {
+	    return this.charAt(0).toUpperCase() + this.slice(1);
+	};
+	/*
 	 * startGameHook()
 	 * this function navigates the user to Main Game Area
 	 */	
@@ -84,6 +76,25 @@ $(function() {
 		spectateArea.hide();
 		scoreArea.hide();
 		playArea.show();
+		var playAreaBtns = "";
+		for (var t in items){
+			playAreaBtns += '<div class="btn-group" role="group"><button type="button" id="'+items[t]+'" class="selection btn btn-default">'+(items[t]).capitalize()+'</button></div>';
+		}
+		playAreaBtnsGroup.html(playAreaBtns);
+		/*
+		 * Play Area button Handler
+		 */	
+		playArea.find("button.selection").on("click", function() {
+			target = $(this).attr("id");
+			startGame(target);
+		});
+		
+		playArea.find("button").on("click", function() {
+			target = $(this).attr("id");
+			if(target === "exitArea"){
+				window[target]();
+			}
+		});
 	};
 	/*
 	 * showModal()
@@ -131,22 +142,28 @@ $(function() {
 	};
 	/*
 	 * Standard RPS Items
+	 * 
+	 * Add new items here; eg: items[4] = "lizard"; items[5] = "spock";
 	 */	
 	items = new Array();
 	items[1] = "rock", items[2]= "paper", items[3]= "scissors";
 	/*
 	 * Standard RPS Enemies
+	 * 
+	 * Add items enemy here; { "lizard" : "rock", "lizard" : "scissors", "scissor" : "spock", "rock" : "spock", "paper" : "lizard", "spock" : "paper", "spock" : "lizard" }
 	 */	
 	var beatenBy = {
 		"rock" : "paper",
 		"paper" : "scissors",
 		"scissors" : "rock"
 	};
-	
+	/*
+	 * returns a random integer between min and max
+	 */
 	var randomSelection = function() {
-		var min = 1, max = Object.keys(beatenBy).length;
+		var min = 1, max = items.length-1;
 		return Math.floor(Math.random() * max) + min;
-	}
+	};
 	/*
 	 * simulateGame()
 	 * This function simulates game being played by 2 players
