@@ -1,0 +1,15 @@
+{
+  "unique-headings": true,
+  "zero-units": true,
+  "box-model":false,
+  "universal-selector": true,
+  "box-sizing":false,
+  "overqualified-elements":true,
+  "adjoining-classes":false,
+  "gradients":false,
+  "regex-selectors":false,
+  "unqualified-attributes": false,
+  "font-sizes": false,
+  "floats": false,
+  "compatible-vendor-prefixes": false
+}
